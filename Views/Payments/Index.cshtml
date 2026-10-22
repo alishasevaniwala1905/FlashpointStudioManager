@@ -1,0 +1,71 @@
+
+@model IEnumerable<FlashpointStudioManager.Models.Payment>
+
+@{
+    ViewData["Title"] = "Payment Management";
+}
+
+<div style="padding:30px;font-family:Arial,sans-serif;background:#f8f7f5;min-height:100vh;">
+    <h1 style="color:#202938;">Payment Management</h1>
+    <p>Track payments received for your photography bookings.</p>
+
+    <div style="background:white;padding:20px;border-radius:12px;margin:20px 0;">
+        <h3>Total Payments Received</h3>
+        <h2 style="color:#237547;">
+            ₹@(((decimal)ViewBag.TotalPaid).ToString("N0"))
+        </h2>
+    </div>
+
+    <a href="/Payments/Create"
+       style="display:inline-block;background:#202938;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;margin-bottom:20px;">
+        + Record Payment
+    </a>
+
+    <div style="background:white;padding:20px;border-radius:12px;overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;text-align:left;">
+            <thead>
+                <tr style="background:#eae5df;">
+                    <th style="padding:12px;">Payment ID</th>
+                    <th style="padding:12px;">Booking</th>
+                    <th style="padding:12px;">Customer</th>
+                    <th style="padding:12px;">Date</th>
+                    <th style="padding:12px;">Amount</th>
+                    <th style="padding:12px;">Method</th>
+                    <th style="padding:12px;">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var payment in Model)
+                {
+                    <tr style="border-bottom:1px solid #ddd;">
+                        <td style="padding:12px;">@payment.Id</td>
+                        <td style="padding:12px;">Booking #@payment.BookingId</td>
+                        <td style="padding:12px;">
+                            @(payment.Booking?.Customer?.FullName ?? "Unknown")
+                        </td>
+                        <td style="padding:12px;">
+                            @payment.PaymentDate.ToString("dd MMM yyyy")
+                        </td>
+                        <td style="padding:12px;">
+                            ₹@payment.Amount.ToString("N0")
+                        </td>
+                        <td style="padding:12px;">@payment.PaymentMethod</td>
+                        <td style="padding:12px;">@payment.Notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <p style="text-align:center;padding:20px;">
+                No payments recorded yet.
+            </p>
+        }
+    </div>
+
+    <a href="/"
+       style="display:inline-block;margin-top:20px;padding:12px 20px;background:#202938;color:white;border-radius:6px;text-decoration:none;">
+        ← Back to Dashboard
+    </a>
+</div>

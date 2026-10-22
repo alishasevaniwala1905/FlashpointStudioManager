@@ -1,0 +1,108 @@
+
+@model IEnumerable<FlashpointStudioManager.ViewModels.BookingPaymentViewModel>
+
+@{
+    ViewData["Title"] = "Booking Payment Tracking";
+
+    decimal totalAmount = Model.Sum(x => x.TotalAmount);
+    decimal totalPaid = Model.Sum(x => x.AmountPaid);
+    decimal totalBalance = Model.Sum(x => x.RemainingBalance);
+}
+
+<div style="padding:30px;font-family:Arial,sans-serif;background:#f8f7f5;min-height:100vh;">
+
+    <h1 style="color:#202938;">Booking Payment Tracking</h1>
+    <p>Track package amounts, payments received, and outstanding balances.</p>
+
+    <!-- Summary Cards -->
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin:25px 0;">
+
+        <div style="flex:1;min-width:200px;background:white;padding:22px;border-radius:12px;">
+            <h3>Total Booking Amount</h3>
+            <h2>₹@totalAmount.ToString("N0")</h2>
+        </div>
+
+        <div style="flex:1;min-width:200px;background:white;padding:22px;border-radius:12px;">
+            <h3>Total Amount Paid</h3>
+            <h2 style="color:#237547;">₹@totalPaid.ToString("N0")</h2>
+        </div>
+
+        <div style="flex:1;min-width:200px;background:white;padding:22px;border-radius:12px;">
+            <h3>Total Remaining Balance</h3>
+            <h2 style="color:#b45309;">₹@totalBalance.ToString("N0")</h2>
+        </div>
+
+    </div>
+
+    <!-- Booking Payment Table -->
+    <div style="background:white;padding:20px;border-radius:12px;overflow-x:auto;">
+
+        <table style="width:100%;border-collapse:collapse;text-align:left;">
+            <thead>
+                <tr style="background:#eae5df;">
+                    <th style="padding:12px;">Booking ID</th>
+                    <th style="padding:12px;">Customer</th>
+                    <th style="padding:12px;">Event</th>
+                    <th style="padding:12px;">Event Date</th>
+                    <th style="padding:12px;">Total Amount</th>
+                    <th style="padding:12px;">Amount Paid</th>
+                    <th style="padding:12px;">Balance</th>
+                    <th style="padding:12px;">Payment Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr style="border-bottom:1px solid #ddd;">
+                        <td style="padding:12px;">#@booking.BookingId</td>
+                        <td style="padding:12px;">@booking.CustomerName</td>
+                        <td style="padding:12px;">@booking.EventType</td>
+                        <td style="padding:12px;">@booking.EventDate.ToString("dd MMM yyyy")</td>
+                        <td style="padding:12px;">₹@booking.TotalAmount.ToString("N0")</td>
+                        <td style="padding:12px;color:#237547;">₹@booking.AmountPaid.ToString("N0")</td>
+                        <td style="padding:12px;color:#b45309;">₹@booking.RemainingBalance.ToString("N0")</td>
+                        <td style="padding:12px;">
+                            @if (booking.PaymentStatus == "Paid")
+                            {
+                                <span style="background:#d8f3dc;color:#237547;padding:6px 10px;border-radius:20px;">Paid</span>
+                            }
+                            else if (booking.PaymentStatus == "Partially Paid")
+                            {
+                                <span style="background:#fff0c2;color:#8a5a00;padding:6px 10px;border-radius:20px;">Partially Paid</span>
+                            }
+                            else
+                            {
+                                <span style="background:#fce1e4;color:#a83232;padding:6px 10px;border-radius:20px;">Pending</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!Model.Any())
+        {
+            <p style="text-align:center;padding:20px;">No bookings available yet. Create a booking first.</p>
+        }
+
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;">
+        <a href="/Payments"
+           style="display:inline-block;background:#237547;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;">
+            Manage Payments
+        </a>
+
+        <a href="/Bookings"
+           style="display:inline-block;background:#806653;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;">
+            View Bookings
+        </a>
+
+        <a href="/"
+           style="display:inline-block;background:#202938;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;">
+            Back to Dashboard
+        </a>
+    </div>
+
+</div>

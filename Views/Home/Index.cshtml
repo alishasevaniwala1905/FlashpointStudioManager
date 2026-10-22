@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div style="padding:40px; font-family:Arial,sans-serif; background:#f8f7f5; min-height:100vh;">
+
+    <!-- Welcome Banner -->
+    <div style="background:linear-gradient(120deg,#202938,#806653);
+                color:white; padding:35px; border-radius:16px;">
+        <p>FLASHPOINT PHOTO STUDIO</p>
+        <h1>Welcome to Your Studio Dashboard!</h1>
+        <p>Capture moments. Create memories.</p>
+        <p>Manage your customers, bookings and payments in one place.</p>
+    </div>
+
+    <!-- Statistics -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:25px;">
+
+        <div style="flex:1; min-width:180px; padding:25px;
+                    background:white; border-radius:12px;">
+            <h3>Total Customers</h3>
+            <h1>@ViewBag.TotalCustomers</h1>
+        </div>
+
+        <div style="flex:1; min-width:180px; padding:25px;
+                    background:white; border-radius:12px;">
+            <h3>Total Bookings</h3>
+            <h1>@ViewBag.TotalBookings</h1>
+        </div>
+
+        <div style="flex:1; min-width:180px; padding:25px;
+                    background:white; border-radius:12px;">
+            <h3>Pending Payments</h3>
+            <h1>₹@(((decimal)ViewBag.PendingPayments).ToString("N0"))</h1>
+        </div>
+
+    </div>
+
+    <!-- Management Section -->
+    <h2 style="margin-top:35px; color:#202938;">Studio Management</h2>
+
+    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;">
+
+        <!-- Customer Management -->
+        <div style="flex:1; min-width:240px; padding:25px;
+                    background:white; border:1px solid #e0ddd8;
+                    border-radius:12px;">
+            <h3>Customer Management</h3>
+            <p>Add customers and manage their contact details.</p>
+            <a href="/Customers"
+               style="display:inline-block; background:#202938; color:white;
+                      padding:12px 20px; border-radius:6px;
+                      text-decoration:none;">
+                Manage Customers
+            </a>
+        </div>
+
+        <!-- Booking Management -->
+        <div style="flex:1; min-width:240px; padding:25px;
+                    background:white; border:1px solid #e0ddd8;
+                    border-radius:12px;">
+            <h3>Booking Management</h3>
+            <p>Create and view wedding and photoshoot bookings.</p>
+            <a href="/Bookings"
+               style="display:inline-block; background:#806653; color:white;
+                      padding:12px 20px; border-radius:6px;
+                      text-decoration:none;">
+                Manage Bookings
+            </a>
+        </div>
+
+        <!-- Payment Management -->
+        <div style="flex:1; min-width:240px; padding:25px;
+                    background:white; border:1px solid #e0ddd8;
+                    border-radius:12px;">
+            <h3>Payment Management</h3>
+            <p>Record advance payments and track payments received for bookings.</p>
+            <a href="/Payments"
+               style="display:inline-block; background:#237547; color:white;
+                      padding:12px 20px; border-radius:6px;
+                      text-decoration:none;">
+                Manage Payments
+            </a>
+        </div>
+
+    </div>
+
+</div>

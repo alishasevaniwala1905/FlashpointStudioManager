@@ -1,0 +1,131 @@
+﻿
+@model IEnumerable<FlashpointStudioManager.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<div style="padding:30px; font-family:Arial,sans-serif; background:#f8f7f5; min-height:100vh;">
+
+    <h1 style="color:#202938;">Customer Management</h1>
+    <p>Manage your Flashpoint Photo Studio customers.</p>
+
+    <!-- Add Customer Button -->
+    <a href="/Customers/Create"
+       style="display:inline-block; background:#202938; color:white;
+              padding:12px 20px; border-radius:6px;
+              text-decoration:none;">
+        + Add New Customer
+    </a>
+
+    <!-- Search Form -->
+    <form method="get" action="/Customers/Index"
+          style="display:flex; align-items:center; gap:10px;
+                 flex-wrap:wrap; margin:20px 0;">
+
+        <input type="text"
+               name="searchString"
+               value="@ViewBag.SearchString"
+               placeholder="Search by name or phone"
+               style="width:300px; max-width:100%; padding:12px;
+                      border:1px solid #ccc; border-radius:6px;
+                      box-sizing:border-box;" />
+
+        <button type="submit"
+                style="background:#202938; color:white; padding:12px 22px;
+                       border:0; border-radius:6px; cursor:pointer;">
+            Search
+        </button>
+
+        <a href="/Customers"
+           style="background:#ddd; color:#202938; padding:12px 20px;
+                  border-radius:6px; text-decoration:none;">
+            Clear
+        </a>
+    </form>
+
+    <!-- Customer Table -->
+    <div style="background:white; padding:20px; border-radius:12px;
+                overflow-x:auto;">
+
+        <table style="width:100%; border-collapse:collapse; text-align:left;">
+
+            <thead>
+                <tr style="background:#eae5df;">
+                    <th style="padding:12px;">ID</th>
+                    <th style="padding:12px;">Full Name</th>
+                    <th style="padding:12px;">Phone</th>
+                    <th style="padding:12px;">Email</th>
+                    <th style="padding:12px;">Event Type</th>
+                    <th style="padding:12px;">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr style="border-bottom:1px solid #ddd;">
+
+                        <td style="padding:12px;">@customer.Id</td>
+                        <td style="padding:12px;">@customer.FullName</td>
+                        <td style="padding:12px;">@customer.Phone</td>
+                        <td style="padding:12px;">@customer.Email</td>
+                        <td style="padding:12px;">@customer.EventType</td>
+
+                        <td style="padding:12px; white-space:nowrap;">
+
+                            <!-- Edit Button -->
+                            <a href="/Customers/Edit/@customer.Id"
+                               style="display:inline-block; background:#806653;
+                                      color:white; padding:8px 12px;
+                                      border-radius:5px; text-decoration:none;">
+                                Edit
+                            </a>
+
+                            <!-- Delete Button -->
+                            <form asp-action="Delete" method="post"
+                                  style="display:inline;">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="id"
+                                       value="@customer.Id" />
+
+                                <button type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this customer?')"
+                                        style="background:#a83232; color:white;
+                                               padding:8px 12px; border:none;
+                                               border-radius:5px; cursor:pointer;">
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+        @if (!Model.Any())
+        {
+            <p style="text-align:center; padding:20px;">
+                No customers found. Add a customer or try another search.
+            </p>
+        }
+
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div style="margin-top:30px;">
+        <a href="/"
+           style="display:inline-block; padding:12px 22px;
+                  background:#202938; color:white;
+                  border-radius:6px; text-decoration:none;
+                  font-weight:bold;">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+</div>

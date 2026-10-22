@@ -1,0 +1,61 @@
+
+@model IEnumerable<FlashpointStudioManager.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>Studio Bookings</h2>
+            <p class="text-muted">Manage your photo studio events</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">+ Add Booking</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Customer</th>
+                            <th>Event</th>
+                            <th>Event Date</th>
+                            <th>Package Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var booking in Model)
+                        {
+                            <tr>
+                                <td>@booking.Customer?.FullName</td>
+                                <td>@booking.EventType</td>
+                                <td>@booking.EventDate.ToString("dd MMM yyyy")</td>
+                                <td>₹@booking.PackageAmount.ToString("N2")</td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">
+                                        @booking.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                No bookings yet. Click Add Booking to get started.
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

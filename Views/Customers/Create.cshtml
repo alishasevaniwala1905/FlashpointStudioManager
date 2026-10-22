@@ -1,0 +1,52 @@
+﻿@model FlashpointStudioManager.Models.Customer
+
+@{
+    ViewData["Title"] = "Add Customer";
+}
+
+<div style="max-width:600px;margin:35px auto;font-family:Arial">
+    <h1>Add New Customer</h1>
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <p>
+            <label asp-for="FullName">Full Name</label><br />
+            <input asp-for="FullName" required style="width:100%;padding:10px" />
+            <span asp-validation-for="FullName"></span>
+        </p>
+
+        <p>
+            <label asp-for="Phone">Phone Number</label><br />
+            <input asp-for="Phone" required style="width:100%;padding:10px" />
+            <span asp-validation-for="Phone"></span>
+        </p>
+
+        <p>
+            <label asp-for="Email">Email</label><br />
+            <input asp-for="Email" type="email" style="width:100%;padding:10px" />
+        </p>
+
+        <p>
+            <label asp-for="Address">Address</label><br />
+            <input asp-for="Address" style="width:100%;padding:10px" />
+        </p>
+
+        <p>
+            <label asp-for="EventType">Event Type</label><br />
+            <select asp-for="EventType" style="width:100%;padding:10px">
+                <option value="">Select Event</option>
+                <option>Wedding</option>
+                <option>Pre-Wedding</option>
+                <option>Modeling</option>
+                <option>Birthday</option>
+                <option>Baby Shoot</option>
+                <option>Other</option>
+            </select>
+        </p>
+
+        <button type="submit" style="padding:12px 20px">Save Customer</button>
+    </form>
+
+    <p><a href="/Customers">Back to Customers</a></p>
+</div>

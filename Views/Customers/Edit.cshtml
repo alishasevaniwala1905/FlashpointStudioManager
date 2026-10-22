@@ -1,0 +1,42 @@
+
+@model FlashpointStudioManager.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+
+<h2>Edit Customer</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" />
+        <span asp-validation-for="Phone"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" />
+    </div>
+
+    <div>
+        <label asp-for="EventType"></label>
+        <input asp-for="EventType" />
+    </div>
+
+    <button type="submit">Save Changes</button>
+    <a href="/Customers">Cancel</a>
+</form>

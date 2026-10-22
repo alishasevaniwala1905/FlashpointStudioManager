@@ -1,0 +1,12 @@
+
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Local database
+flashpoint.db
+
+# Development settings may contain secrets
+appsettings.Development.json

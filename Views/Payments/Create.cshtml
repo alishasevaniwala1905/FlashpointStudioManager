@@ -1,0 +1,79 @@
+
+@model FlashpointStudioManager.Models.Payment
+
+@{
+    ViewData["Title"] = "Record Payment";
+}
+
+<div style="max-width:650px;margin:35px auto;padding:30px;background:#f8f7f5;font-family:Arial,sans-serif;border-radius:12px;">
+    <h1 style="color:#202938;">Record Payment</h1>
+    <p>Record an advance or remaining payment for a booking.</p>
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" style="color:#a83232;"></div>
+
+        <div style="margin-bottom:16px;">
+            <label asp-for="BookingId" style="display:block;margin-bottom:6px;">
+                Select Booking
+            </label>
+            <select asp-for="BookingId"
+                    asp-items="ViewBag.BookingId"
+                    style="width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;">
+                <option value="">-- Select Booking --</option>
+            </select>
+            <span asp-validation-for="BookingId" style="color:#a83232;"></span>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <label asp-for="Amount" style="display:block;margin-bottom:6px;">
+                Amount Paid (₹)
+            </label>
+            <input asp-for="Amount" type="number" min="0.01" step="0.01"
+                   style="width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;" />
+            <span asp-validation-for="Amount" style="color:#a83232;"></span>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <label asp-for="PaymentDate" style="display:block;margin-bottom:6px;">
+                Payment Date
+            </label>
+            <input asp-for="PaymentDate" type="date"
+                   style="width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;" />
+            <span asp-validation-for="PaymentDate" style="color:#a83232;"></span>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <label asp-for="PaymentMethod" style="display:block;margin-bottom:6px;">
+                Payment Method
+            </label>
+            <select asp-for="PaymentMethod"
+                    style="width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;">
+                <option>Cash</option>
+                <option>UPI</option>
+                <option>Bank Transfer</option>
+                <option>Card</option>
+                <option>Cheque</option>
+            </select>
+            <span asp-validation-for="PaymentMethod" style="color:#a83232;"></span>
+        </div>
+
+        <div style="margin-bottom:20px;">
+            <label asp-for="Notes" style="display:block;margin-bottom:6px;">
+                Notes (Optional)
+            </label>
+            <textarea asp-for="Notes" rows="3"
+                      style="width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;"></textarea>
+        </div>
+
+        <button type="submit"
+                style="background:#202938;color:white;padding:12px 22px;border:0;border-radius:6px;cursor:pointer;">
+            Save Payment
+        </button>
+
+        <a href="/Payments" style="margin-left:12px;color:#202938;">
+            Cancel
+        </a>
+    </form>
+</div>
